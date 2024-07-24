@@ -1,14 +1,16 @@
 language: rust
 rust:
   - stable
-  - nightly
   - beta
-matrix:
+  - nightly
+jobs:
   allow_failures:
     - rust: nightly
   fast_finish: true
 cache: cargo
-
+before_cache:
+  - rm -rf "$TRAVIS_HOME/.cargo/registry/src"
+  ⋮ # rest of your existing "before_cache"
 script:
-  - cargo build --verbose
-  - cargo build --verbose
+  - cargo build --verbose --workspace
+  - cargo test --verbose --workspace
